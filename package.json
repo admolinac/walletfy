@@ -19,7 +19,9 @@
     "@tanstack/router-plugin": "^1.121.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.6"
+    "tailwindcss": "^4.0.6",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@tanstack/eslint-config": "^0.1.0",
