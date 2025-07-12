@@ -10,7 +10,7 @@ o	Tipo, un String que solo puede ser “egreso” o “ingreso”.
 
 import { z } from 'zod';
 
-export const eventSchema = z.object({
+export const EventSchema = z.object({
     id: z.uuid("Id is mandatory."),
     name: z.string("Name is mandatory.").max(20, { error: "The maximum number of characters has been exceeded" }),
     description: z.string().max(100, { error: "The maximum number of characters has been exceeded" }).optional(),
@@ -19,4 +19,12 @@ export const eventSchema = z.object({
     type: z.enum(["income", "expense"])
 });
 
-export type EventType = z.infer<typeof eventSchema>;
+export type EventType = z.infer<typeof EventSchema>;
+
+export const CreateEventSchema = EventSchema.omit({ id: true });
+
+export type CreateEventType = z.infer<typeof CreateEventSchema>;
+
+export const UpdateEventSchema = EventSchema.partial().extend({ id: z.uuid() });
+
+export type UpdateEventSchema = z.infer<typeof UpdateEventSchema>;
