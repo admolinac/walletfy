@@ -15,7 +15,7 @@ export const EventSchema = z.object({
     name: z.string("Name is mandatory.").max(20, { error: "The maximum number of characters has been exceeded" }),
     description: z.string().max(100, { error: "The maximum number of characters has been exceeded" }).optional(),
     quantity: z.number("Quantity is mandatory.").positive("The number must be positive"),
-    date: z.date("Bad date").min(new Date("2025-01-01"), { error: "Too old" }),
+    date: z.date("Bad date").min(new Date("1930-01-01"), { error: "Too old" }),
     type: z.enum(["income", "expense"])
 });
 
