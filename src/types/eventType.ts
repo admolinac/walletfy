@@ -27,4 +27,4 @@ export type CreateEventType = z.infer<typeof CreateEventSchema>;
 
 export const UpdateEventSchema = EventSchema.partial().extend({ id: z.uuid() });
 
-export type UpdateEventSchema = z.infer<typeof UpdateEventSchema>;
+export type UpdateEventType = z.infer<typeof UpdateEventSchema>;
