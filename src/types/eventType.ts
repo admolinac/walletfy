@@ -11,7 +11,7 @@ o	Tipo, un String que solo puede ser “egreso” o “ingreso”.
 import { z } from 'zod';
 
 export const EventSchema = z.object({
-    id: z.string("Id is mandatory."),
+    id: z.uuid("Id as UUID is mandatory"),
     name: z.string("Name is mandatory.").min(1).max(20, { error: "The maximum number of characters has been exceeded" }),
     description: z.string().max(100, { error: "The maximum number of characters has been exceeded" }).optional(),
     amount: z.number("Amount is mandatory.").positive("The number must be positive"),
