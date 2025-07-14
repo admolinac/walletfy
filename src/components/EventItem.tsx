@@ -9,7 +9,6 @@ type EventItemProps = EventType & {
     className?: string,
 }
 
-// const EventItem = ({ category, date, amount, tooltipHtml, isExpense = true, attachment }) => {
 const EventItem = (props: EventItemProps) => {
     const { name, date, description, amount, type, id } = props;
 
@@ -18,8 +17,8 @@ const EventItem = (props: EventItemProps) => {
             <Tooltip label={description} color="indigo" position="bottom-start" offset={5}>
                 <div
                     className={cn(
+                        "p-2 rounded-md flex justify-between gap-x-32 hover:bg-gray-100 dark:hover:bg-zinc-700",
                         props.className,
-                        "p-2 rounded-md flex justify-between gap-x-32 hover:bg-gray-100 dark:hover:bg-zinc-700"
                     )}
                 >
                     <div className="flex flex-col text-base text-left text-gray-700">
