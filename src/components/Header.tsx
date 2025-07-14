@@ -12,9 +12,11 @@ export default function Header() {
       <div className="mx-auto w-full max-w-screen-xl px-4 md:px-4 lg:px-6 py-3 flex items-center justify-between">
         <Link
           to="/"
-          className="text-xl font-bold tracking-wide hover:opacity-90 transition"
+          className="text-xl font-bold tracking-wide flex items-center gap-1 transition hover:opacity-90"
         >
-          Walletfy
+          <span className="bg-indigo-100 text-indigo-800 dark:bg-indigo-800 dark:text-white px-2 py-1 rounded">
+            Walletfy
+          </span>
         </Link>
 
         <button
