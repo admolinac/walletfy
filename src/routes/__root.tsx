@@ -1,15 +1,18 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import Header from '../components/Header'
+import { Outlet, createRootRoute } from '@tanstack/react-router';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export const Route = createRootRoute({
   component: () => (
-    <>
+    <div className="min-h-screen flex flex-col bg-white dark:bg-zinc-950 text-black dark:text-white">
       <Header />
 
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
+      <main className="flex-grow w-full px-4 md:px-6 py-6">
+        <Outlet />
+      </main>
+
+      <Footer />
+
+    </div>
   ),
 })
