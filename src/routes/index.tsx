@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { v4 as uuidv4 } from 'uuid';
 import type { EventType } from '@/types/eventType';
-import EventItem from '@/components/EventItem';
+import EventItem from '@/components/event/EventItem';
 
 
 export const Route = createFileRoute('/')({
@@ -61,5 +61,6 @@ function App() {
         <EventItem key={index} id={mockEvent.id} name={mockEvent.name} description={mockEvent.description} amount={mockEvent.amount} date={mockEvent.date} type={mockEvent.type}></EventItem>
       ))}
     </div>
+
   )
 }

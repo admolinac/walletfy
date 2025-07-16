@@ -39,7 +39,6 @@ const EventItem = (props: EventItemProps) => {
                     </div>
                 </div>
             </Tooltip>
-            <div className="border-b border-gray-200 w-full h-px my-2 dark:border-zinc-500"></div>
         </>
     );
 };
