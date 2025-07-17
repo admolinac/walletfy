@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { Link, createFileRoute, } from '@tanstack/react-router';
 import { v4 as uuidv4 } from 'uuid';
 import type { EventType } from '@/types/eventType';
 import EventItem from '@/components/event/EventItem';
@@ -57,6 +57,11 @@ const mockEvents: Array<EventType> = [
 function App() {
   return (
     <div className="text-center dark:bg-zinc-800 dark:text-white">
+
+      <div>
+        <Link to="/event/$id" params={{ id: 'new' }} className="text-blue-500 hover:underline">Add event</Link>
+      </div>
+
       {mockEvents.map((mockEvent, index) => (
         <EventItem key={index} id={mockEvent.id} name={mockEvent.name} description={mockEvent.description} amount={mockEvent.amount} date={mockEvent.date} type={mockEvent.type}></EventItem>
       ))}

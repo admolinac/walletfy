@@ -1,4 +1,4 @@
-import { Divider } from '@mantine/core';
+import { Divider, Title } from '@mantine/core';
 import { IconMoon, IconSun } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import useAppStore from '@/store';
@@ -14,12 +14,12 @@ export default function Header() {
       <div className="w-full px-4 md:px-6 py-4 flex items-center justify-between">
         <Link
           to="/"
-          className="flex items-center gap-3 text-xl font-bold tracking-tight hover:opacity-70 transition"
+          className="flex items-center gap-3 text-xl font-semibold tracking-tight hover:opacity-90 transition-opacity duration-200"
         >
           <div
             className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center shadow-inner',
-              theme === 'light' ? 'bg-indigo-100' : 'bg-indigo-800'
+              'w-10 h-10 rounded-full flex items-center justify-center shadow-md',
+              theme === 'light' ? 'bg-indigo-50 border-indigo-200' : 'bg-indigo-700'
             )}
           >
             <img
@@ -29,30 +29,29 @@ export default function Header() {
             />
           </div>
 
-          <span className={cn("text-indigo-700", "dark:text-white")}>
-            Walletfy
-          </span>
+          <Title order={3} className={cn("text-zinc-800", "dark:text-white select-none")}> Walletfy</Title>
         </Link>
 
         <button
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
           aria-label="Toggle Theme"
           className={cn(
-            'w-16 h-8 flex items-center px-1 rounded-full border transition-colors duration-300 cursor-pointer',
+            'w-16 h-8 flex items-center px-1 rounded-full border transition-colors duration-300',
             theme === 'light'
               ? 'bg-indigo-100 border-indigo-200 justify-start'
-              : 'bg-indigo-800 border-indigo-700 justify-end'
+              : 'bg-indigo-800 border-indigo-600 justify-end',
+            'cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-400'
           )}
         >
           <div
             className={cn(
-              'w-6 h-6 rounded-full flex items-center justify-center text-sm transition-all duration-300',
+              'w-7 h-7 rounded-full flex items-center justify-center shadow-md transition-all duration-300',
               theme === 'light'
-                ? 'bg-white text-indigo-400'
-                : 'bg-zinc-900 text-white'
+                ? 'bg-white text-indigo-500 ml-[2px]'
+                : 'bg-zinc-900 text-yellow-400 mr-[2px]'
             )}
           >
-            {theme === 'light' ? <IconMoon size={16} /> : <IconSun size={16} />}
+            {theme === 'light' ? <IconMoon size={18} /> : <IconSun size={18} />}
           </div>
 
         </button>

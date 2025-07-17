@@ -16,6 +16,7 @@ export function Provider({ children }: ProviderProps) {
     return (
         <MantineProvider
             theme={themeConfig}
+            defaultColorScheme={theme}
             forceColorScheme={theme}
         >
             {children}
