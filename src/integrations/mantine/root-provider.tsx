@@ -13,8 +13,6 @@ const themeConfig = createTheme({
 export function Provider({ children }: ProviderProps) {
     const theme = useAppStore((state) => state.theme);
 
-    console.log('MantineProvider rendered with theme:', theme);
-
     return (
         <MantineProvider
             theme={themeConfig}
