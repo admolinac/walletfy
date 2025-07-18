@@ -1,4 +1,4 @@
-import { Divider, Title } from '@mantine/core';
+import { Divider, Title, useMantineColorScheme } from '@mantine/core';
 import { IconMoon, IconSun } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import useAppStore from '@/store';
@@ -7,9 +7,9 @@ import { cn } from '@/utils/style';
 export default function Header() {
 
   const { setTheme, theme } = useAppStore();
+  const { setColorScheme } = useMantineColorScheme();
 
   return (
-
     <header className={cn("bg-white  text-black", "dark:bg-zinc-900 dark:text-white")}>
       <div className="w-full px-4 md:px-6 py-4 flex items-center justify-between">
         <Link
@@ -33,7 +33,7 @@ export default function Header() {
         </Link>
 
         <button
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          onClick={() => toggleTheme()}
           aria-label="Toggle Theme"
           className={cn(
             'w-16 h-8 flex items-center px-1 rounded-full border transition-colors duration-300',
@@ -60,4 +60,11 @@ export default function Header() {
       <Divider className="border-gray-200 dark:border-zinc-700" />
     </header>
   );
+
+  function toggleTheme() {
+    const next = theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+    setColorScheme(next);
+  }
+
 }
