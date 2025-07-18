@@ -48,7 +48,7 @@ export default function Header() {
               'w-7 h-7 rounded-full flex items-center justify-center shadow-md transition-all duration-300',
               theme === 'light'
                 ? 'bg-white text-indigo-500 ml-[2px]'
-                : 'bg-zinc-900 text-yellow-400 mr-[2px]'
+                : 'bg-zinc-900 text-white mr-[2px]'
             )}
           >
             {theme === 'light' ? <IconMoon size={18} /> : <IconSun size={18} />}
