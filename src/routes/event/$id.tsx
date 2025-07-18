@@ -1,8 +1,5 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router';
 import React from 'react';
-import type { CreateEventType } from '@/types/eventType';
-import DataRepo from '@/api/datasource';
 import { EventForm } from '@/components/event/EventForm';
 
 export const Route = createFileRoute('/event/$id')({
@@ -12,10 +9,6 @@ export const Route = createFileRoute('/event/$id')({
 function RouteComponent() {
 
     const { id } = Route.useParams();
-    const navigate = useNavigate();
-
-
-
 
     const [mode] = React.useState<'create' | 'update'>(
         id === 'new' ? 'create' : 'update',
@@ -23,7 +16,11 @@ function RouteComponent() {
 
     return (
         <>
-            <EventForm mode={mode} title={mode === "create" ? "Create Event" : "Update Event"} />
+            <EventForm
+                mode={mode}
+                title={mode === "create" ? "Create Event" : "Update Event"}
+                id={mode === "update" ? id : undefined}
+            />
         </>
     )
 }

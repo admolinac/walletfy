@@ -1,16 +1,25 @@
+import { useEffect } from "react";
 import { Container, Divider, Group, Paper, ThemeIcon, Title } from "@mantine/core";
 import { IconBrandCashapp } from "@tabler/icons-react";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from "@tanstack/react-router";
 import type { CreateEventType } from "@/types/eventType";
 import { CreateEventSchema } from "@/types/eventType";
 import { useAppForm } from "@/hooks/formHook";
-
+import { notifications } from '@/utils/notification';
+import DataRepo from "@/api/datasource";
 
 type EventFormType = {
     mode: 'create' | 'update';
-    title: string
+    title: string;
+    id?: string;
 }
 
 export const EventForm = (props: EventFormType) => {
+
+    const { mode, id, title } = props;
+
+    const navigate = useNavigate();
 
     const defaultValues: CreateEventType = {
         name: '',
@@ -21,19 +30,94 @@ export const EventForm = (props: EventFormType) => {
         attachment: '',
     }
 
+    const { data } = useQuery({
+        enabled: mode === 'update',
+        queryKey: ['event', id],
+        queryFn: () => DataRepo.getEventById(id!),
+    });
+
+    const queryClient = useQueryClient();
+
+    const { mutate, isPending } = useMutation<
+        boolean,
+        Error,
+        CreateEventType
+    >({
+        mutationKey: ['event'],
+        mutationFn: async (values: CreateEventType) => {
+            if (mode === 'create') {
+                await DataRepo.saveEvent(values);
+            } else {
+                await DataRepo.updateEvent({
+                    ...values,
+                    id: id!,
+                });
+            }
+            queryClient.invalidateQueries({
+                queryKey: ["events"]
+            })
+            return true;
+        },
+        onSettled: (_, error: Error | null) => {
+            if (isPending) {
+                notifications.info({
+                    title: 'Processing',
+                    message: 'Saving event, please wait...',
+                });
+            }
+            if (error) {
+                notifications.error({
+                    title: 'Error',
+                    message:
+                        error.message || 'An error occurred while saving the event',
+                });
+            } else {
+                if (mode === 'create') {
+                    notifications.success({
+                        title: 'Success',
+                        message: 'Event created successfully!',
+                    });
+                }
+                if (mode === 'update') {
+                    notifications.success({
+                        title: 'Success',
+                        message: 'Event updated successfully!',
+                    });
+                }
+                navigate({ to: '/' });
+            }
+        },
+    });
+
     const form = useAppForm({
         defaultValues,
         validators: {
             onSubmit: CreateEventSchema,
         },
         onSubmit: ({ value }) => {
-            console.log('Form submitted with values:', value)
+            console.log('Form submitted with values:', value);
+            mutate(value);
         },
         onSubmitInvalid: (errors) => {
-            console.error('Form submission errors:', errors)
+            console.error('Form submission errors:', errors);
         },
     });
 
+    useEffect(() => {
+        if (data) {
+            form.reset(
+                {
+                    name: data.name,
+                    description: data.description,
+                    amount: data.amount,
+                    date: data.date,
+                    type: data.type,
+                    attachment: data.attachment || '',
+                } as CreateEventType,
+                { keepDefaultValues: true },
+            )
+        }
+    }, [data])
 
     return (
         <div className="px-4 py-8 flex items-center justify-center">
@@ -56,7 +140,7 @@ export const EventForm = (props: EventFormType) => {
                             >
                                 <IconBrandCashapp size={26} />
                             </ThemeIcon>
-                            <Title order={3} className="tracking-tight font-medium">{props.title}</Title>
+                            <Title order={3} className="tracking-tight font-medium">{title}</Title>
                         </Group>
                     </div>
 
