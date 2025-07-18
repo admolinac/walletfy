@@ -1,18 +1,20 @@
-import { StrictMode } from 'react'
-import ReactDOM from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { Notifications } from '@mantine/notifications';
 
-import * as Mantine from './integrations/mantine/root-provider.tsx'
+import * as TanstackQuery from './integrations/tanstack-query/root-provider.tsx'
+import * as Mantine from './integrations/mantine/root-provider.tsx';
 
 // Import the generated route tree
-import { routeTree } from './routeTree.gen'
+import { routeTree } from './routeTree.gen';
 
-import './styles.css'
-import '@mantine/core/styles.css'
+import './styles.css';
+import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import '@mantine/notifications/styles.css'
+import '@mantine/notifications/styles.css';
 
-import reportWebVitals from './reportWebVitals.ts'
+import reportWebVitals from './reportWebVitals.ts';
 
 // Create a new router instance
 const router = createRouter({
@@ -37,9 +39,12 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <Mantine.Provider>
-        <RouterProvider router={router} />
-      </Mantine.Provider>
+      <TanstackQuery.Provider>
+        <Mantine.Provider>
+          <Notifications position="top-right" />
+          <RouterProvider router={router} />
+        </Mantine.Provider>
+      </TanstackQuery.Provider>
     </StrictMode>,
   )
 }
