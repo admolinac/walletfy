@@ -5,6 +5,11 @@ const useAppStore = create<StoreType>(
     (set) => (
         {
             theme: 'light',
+            initialMoney: Number(localStorage.getItem('initialMoney')) || 0,
+            setInitialMoney: (amount) => {
+                localStorage.setItem('initialMoney', amount.toString());
+                set({ initialMoney: amount });
+            },
             setTheme: (theme) =>
                 set((state) => {
 

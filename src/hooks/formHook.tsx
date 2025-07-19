@@ -41,4 +41,17 @@ export const { useAppForm } = createFormHook({
     },
     fieldContext,
     formContext,
+});
+
+export const { useAppForm: useInitialMoneyForm } = createFormHook({
+    fieldComponents: {
+        NumberInput: MantineNumberInput,
+    },
+    formComponents: {
+        SubmitButton: (props) => (
+            <MantineButton {...props}></MantineButton>
+        )
+    },
+    fieldContext,
+    formContext,
 })

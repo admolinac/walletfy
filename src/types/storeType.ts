@@ -5,5 +5,7 @@ export type ThemeType = z.infer<typeof ThemeEnum>;
 
 export interface StoreType {
     theme: ThemeType,
-    setTheme: (theme: ThemeType) => void
+    setTheme: (theme: ThemeType) => void,
+    initialMoney: number,
+    setInitialMoney: (amount: number) => void,
 }

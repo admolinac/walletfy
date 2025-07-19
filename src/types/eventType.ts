@@ -1,13 +1,3 @@
-/*
-•	Evento: corresponde a la representación del ingreso o egreso del usuario. Sus campos deben ser los siguientes:
-o	Id, obligatorio y único por cada evento. Se recomienda el uso de la librería uuid.
-o	Nombre, obligatorio y de máximo 20 caracteres.
-o	Descripción, opcional y de máximo 100 caracteres.
-o	Cantidad, obligatorio y debe ser un número entero o decimal positivo.
-o	Fecha, obligatorio y debe ser una fecha válida
-o	Tipo, un String que solo puede ser “egreso” o “ingreso”.
-*/
-
 import { z } from 'zod';
 
 export const EventSchema = z.object({
