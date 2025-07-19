@@ -99,6 +99,7 @@ export const EventForm = (props: EventFormType) => {
             mutate(value);
         },
         onSubmitInvalid: (errors) => {
+            // Agregar notificacion de error
             console.error('Form submission errors:', errors);
         },
     });
