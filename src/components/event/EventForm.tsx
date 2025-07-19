@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect } from "react";
 import { Container, Divider, Group, Paper, ThemeIcon, Title, useMantineColorScheme } from "@mantine/core";
 import { IconCalendarDollar } from "@tabler/icons-react";
@@ -28,7 +29,7 @@ export const EventForm = (props: EventFormType) => {
         name: '',
         description: '',
         amount: 0,
-        date: new Date(),
+        date: dayjs().toDate(),
         type: 'income',
         attachment: '',
     }
@@ -102,7 +103,10 @@ export const EventForm = (props: EventFormType) => {
             mutate(value);
         },
         onSubmitInvalid: (errors) => {
-            // Agregar notificacion de error
+            notifications.error({
+                title: 'Validation Error',
+                message: 'Please check the form for errors.',
+            });
             console.error('Form submission errors:', errors);
         },
     });
