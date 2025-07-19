@@ -7,6 +7,7 @@ import EventItem from '@/components/event/EventItem';
 import DataRepo from '@/api/datasource';
 import AddEventSection from '@/components/event/EventSection';
 import FinancialSummary from '@/components/event/FinancialSummary';
+import useAppStore from '@/store';
 
 export const Route = createFileRoute('/')({
     component: App,
@@ -16,6 +17,7 @@ function App() {
 
 
     const { colorScheme } = useMantineColorScheme();
+    const initialMoney = useAppStore((state) => state.initialMoney);
     const isDark = colorScheme === 'dark';
 
     const { isPending, error, data: events } = useQuery({
@@ -43,6 +45,32 @@ function App() {
             return acc;
         }, {});
 
+    let lastGlobalBalance = initialMoney;
+
+    const monthDataWithBalance = Object.entries(eventsByMonthYear).map(([monthYear, eventList]) => {
+        const income = eventList
+            .filter(e => e.type === 'income')
+            .reduce((sum, e) => sum + e.amount, 0);
+
+        const expense = eventList
+            .filter(e => e.type === 'expense')
+            .reduce((sum, e) => sum + e.amount, 0);
+
+        const monthlyBalance = income - expense;
+        const globalBalance = lastGlobalBalance + monthlyBalance;
+
+        lastGlobalBalance = globalBalance;
+
+        return {
+            monthYear,
+            eventList,
+            income,
+            expense,
+            monthlyBalance,
+            globalBalance
+        };
+    });
+
 
     return (
         <Container py="md" fluid>
@@ -52,7 +80,7 @@ function App() {
             </Box>
 
             <SimpleGrid cols={3} spacing="xl" verticalSpacing="xl">
-                {Object.entries(eventsByMonthYear).map(([monthYear, eventList]) => (
+                {monthDataWithBalance.map(({ monthYear, eventList, monthlyBalance, globalBalance, income, expense }) => (
                     <Card
                         key={monthYear}
                         radius="md"
@@ -74,7 +102,7 @@ function App() {
                         </Card.Section>
 
                         <Card.Section inheritPadding py="xs" mt="auto" style={{ backgroundColor: isDark ? 'oklch(27.4% 0.006 286.033)' : 'oklch(96.2% 0.018 272.314)' }}>
-                            <FinancialSummary events={eventList} />
+                            <FinancialSummary income={income} expense={expense} monthlyBalance={monthlyBalance} globalBalance={globalBalance} />
                         </Card.Section>
                     </Card>
                 ))}

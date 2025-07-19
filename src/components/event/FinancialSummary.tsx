@@ -1,11 +1,14 @@
-import type { EventType } from "@/types/eventType";
 import { currencyFormatter } from "@/utils/formatters";
 
+type FinancialSummaryProps = {
+    income: number;
+    expense: number;
+    monthlyBalance: number;
+    globalBalance: number;
+}
 
-export default function FinancialSummary({ events }: { events: Array<EventType> }) {
-    const income = events.filter(e => e.type === "income").reduce((acc, e) => acc + e.amount, 0);
-    const expense = events.filter(e => e.type === "expense").reduce((acc, e) => acc + e.amount, 0);
-    const balance = income - expense;
+
+export default function FinancialSummary({ income, expense, monthlyBalance, globalBalance }: FinancialSummaryProps) {
 
     return (
         <div className="flex flex-col gap-1 text-sm text-gray-700 dark:text-gray-300">
@@ -19,11 +22,11 @@ export default function FinancialSummary({ events }: { events: Array<EventType> 
             </div>
             <div className="flex justify-between font-semibold mt-1">
                 <span>Monthly:</span>
-                <span className="text-gray-700 dark:text-gray-200">{currencyFormatter.format(balance)}</span>
+                <span className="text-gray-700 dark:text-gray-200">{currencyFormatter.format(monthlyBalance)}</span>
             </div>
             <div className="flex justify-between font-semibold mt-1">
                 <span>Global:</span>
-                <span className="text-gray-700 dark:text-gray-200">{currencyFormatter.format(balance)}</span>
+                <span className="text-gray-700 dark:text-gray-200">{currencyFormatter.format(globalBalance)}</span>
             </div>
         </div >
     );

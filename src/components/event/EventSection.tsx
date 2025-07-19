@@ -106,7 +106,7 @@ function AddEventSection() {
                             {currencyFormatter.format(initialMoney)}
                         </Text>
                     </Flex>
-                    <Text size="sm" c="dimmed" mt="sm">Initial Amount</Text>
+                    <Text size="sm" c="dimmed" mt="sm">Initial Balance</Text>
                 </Card>
             </Grid.Col>
             <Grid.Col span={4}>
