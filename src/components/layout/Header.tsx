@@ -1,5 +1,5 @@
-import { Divider, Title, useMantineColorScheme } from '@mantine/core';
-import { IconMoon, IconSun } from '@tabler/icons-react';
+import { Divider, ThemeIcon, Title, useMantineColorScheme } from '@mantine/core';
+import { IconMoon, IconSun, IconWallet } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import useAppStore from '@/store';
 import { cn } from '@/utils/style';
@@ -7,7 +7,7 @@ import { cn } from '@/utils/style';
 export default function Header() {
 
   const { setTheme, theme } = useAppStore();
-  const { setColorScheme } = useMantineColorScheme();
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   return (
     <header className={cn("bg-white  text-black", "dark:bg-zinc-900 dark:text-white")}>
@@ -16,20 +16,10 @@ export default function Header() {
           to="/"
           className="flex items-center gap-3 text-xl font-semibold tracking-tight hover:opacity-90 transition-opacity duration-200"
         >
-          <div
-            className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center shadow-md',
-              theme === 'light' ? 'bg-indigo-50 border-indigo-200' : 'bg-indigo-700'
-            )}
-          >
-            <img
-              src={theme === 'light' ? '/wallet-light.svg' : '/wallet-dark.svg'}
-              alt="Wallet Icon"
-              className="w-6 h-6"
-            />
-          </div>
-
-          <Title order={3} className={cn("text-zinc-800", "dark:text-white select-none")}> Walletfy</Title>
+          <ThemeIcon variant={colorScheme === "dark" ? 'filled' : 'light'} size="xl" radius="xl">
+            <IconWallet />
+          </ThemeIcon>
+          <Title order={3} className="select-none" c={colorScheme === "dark" ? "white" : "indigo"}> Walletfy</Title>
         </Link>
 
         <button
