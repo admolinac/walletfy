@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import type DataDS from "@/api/domain/DataDS";
 import type { CreateEventType, EventType, UpdateEventType } from "@/types/eventType";
@@ -36,7 +37,14 @@ class LocalStorageDS implements DataDS {
 
             if (!event) throw new Error('Event not found');
 
-            return event;
+            const eventWithParsedDate = {
+                ...event,
+                date: dayjs(event.date).toDate(),
+            };
+
+            console.log('Event with parsed date:', eventWithParsedDate);
+
+            return eventWithParsedDate;
 
         } catch (error) {
             console.log(error);
