@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Box, Card, Container, Divider, Flex, SimpleGrid, Stack, Title, useMantineColorScheme } from '@mantine/core';
+import { Box, Card, Container, Flex, SimpleGrid, Title, useMantineColorScheme } from '@mantine/core';
 import { createFileRoute, } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
 import type { EventType } from '@/types/eventType';
