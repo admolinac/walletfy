@@ -1,4 +1,5 @@
 
+import dayjs from 'dayjs';
 import { useStore } from '@tanstack/react-form';
 import { IconCalendar } from '@tabler/icons-react';
 import { DatePickerInput } from '@mantine/dates';
@@ -18,9 +19,9 @@ export function MantineDateInput(props: {
         <DatePickerInput
             label={props.label}
             placeholder={props.placeholder}
-            value={field.state.value as string}
+            value={field.state.value as Date}
             onBlur={field.handleBlur}
-            onChange={(val) => field.handleChange(val ?? new Date())}
+            onChange={(val) => handleChange(val)}
             error={error}
             leftSection={<IconCalendar size={18} stroke={1.5} />}
             leftSectionPointerEvents="none"
@@ -29,4 +30,14 @@ export function MantineDateInput(props: {
             dropdownType="modal"
         />
     );
+
+    function handleChange(value: string | null) {
+        console.log('DatePickerInput value changed:', value);
+        if (value) {
+            const validDate = dayjs(value).startOf('day').toDate();
+            field?.handleChange(validDate);
+        } else {
+            field?.handleChange(dayjs().toDate());
+        }
+    }
 }
