@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { Container, Divider, Group, Paper, ThemeIcon, Title } from "@mantine/core";
-import { IconBrandCashapp } from "@tabler/icons-react";
+import { Container, Divider, Group, Paper, ThemeIcon, Title, useMantineColorScheme } from "@mantine/core";
+import { IconCalendarDollar } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from "@tanstack/react-router";
 import type { CreateEventType } from "@/types/eventType";
@@ -20,6 +20,9 @@ export const EventForm = (props: EventFormType) => {
     const { mode, id, title } = props;
 
     const navigate = useNavigate();
+
+    const { colorScheme } = useMantineColorScheme();
+    const isDark = colorScheme === 'dark';
 
     const defaultValues: CreateEventType = {
         name: '',
@@ -139,13 +142,13 @@ export const EventForm = (props: EventFormType) => {
                                 radius="xl"
                                 className="shadow-lg"
                             >
-                                <IconBrandCashapp size={26} />
+                                <IconCalendarDollar size={26} />
                             </ThemeIcon>
-                            <Title order={3} className="tracking-tight font-medium">{title}</Title>
+                            <Title order={3} className="tracking-tight font-medium" c={isDark ? "white" : "indigo"}>{title}</Title>
                         </Group>
                     </div>
 
-                    <Divider className="mb-8" color="indigo" />
+                    <Divider className="mb-8" c={isDark ? "white" : "indigo"} />
 
                     <form
                         className="flex flex-col gap-8"
