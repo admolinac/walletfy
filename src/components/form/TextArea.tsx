@@ -20,7 +20,7 @@ export function MantineTextArea(props: {
             value={field.state.value as string}
             onBlur={field.handleBlur}
             onChange={(e) => field.handleChange(e.currentTarget.value)}
-            error={error}
+            error={error?.message}
             autosize
             minRows={2}
             maxRows={4}

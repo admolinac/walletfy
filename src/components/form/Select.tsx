@@ -22,7 +22,7 @@ export function MantineSelect(props: {
             value={fieldContext.field.state.value as string}
             onBlur={fieldContext.field.handleBlur}
             onChange={(val) => fieldContext.field.handleChange(val)}
-            error={error}
+            error={error?.message}
             data={props.data}
         />
     );

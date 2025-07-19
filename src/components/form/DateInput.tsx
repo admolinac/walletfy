@@ -22,7 +22,7 @@ export function MantineDateInput(props: {
             value={field.state.value as Date}
             onBlur={field.handleBlur}
             onChange={(val) => handleChange(val)}
-            error={error}
+            error={error?.message}
             leftSection={<IconCalendar size={18} stroke={1.5} />}
             leftSectionPointerEvents="none"
             valueFormat="DD/MM/YYYY"
