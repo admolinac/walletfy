@@ -9,14 +9,13 @@ function AddEventSection() {
     const { colorScheme } = useMantineColorScheme();
     const isDark = colorScheme === 'dark';
 
-
     return (
         <Grid justify="center" align="center">
             <Grid.Col span={4}>
                 1
             </Grid.Col>
             <Grid.Col span={4}>
-                <Card radius="md" p="md" withBorder h="100%">
+                <Card radius="md" p="md" h="100%">
                     <Flex align="center" justify="center" gap="sm">
                         <ThemeIcon variant={isDark ? 'filled' : 'light'} size="xl" radius="xl">
                             <IconBuildingBank />
