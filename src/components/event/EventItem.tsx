@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { Tooltip } from '@mantine/core';
+import { useNavigate } from "@tanstack/react-router";
 import type { EventType } from "@/types/eventType";
 import { cn } from "@/utils/style";
 import { currencyFormatter } from "@/utils/formatters";
@@ -11,11 +12,18 @@ type EventItemProps = EventType & {
 
 const EventItem = (props: EventItemProps) => {
     const { name, date, description, amount, type, id } = props;
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        if (window.confirm(`Do you want to edit the event "${name}"?`)) {
+            navigate({ to: `/event/${id}` });
+        }
+    };
 
     return (
         <>
             <Tooltip label={description} color="indigo" position="bottom-start" offset={5}>
-                <div
+                <div onClick={handleClick}
                     className={cn(
                         "p-2 rounded-md flex justify-between gap-x-32 hover:bg-gray-100 dark:hover:bg-zinc-700",
                         props.className,
