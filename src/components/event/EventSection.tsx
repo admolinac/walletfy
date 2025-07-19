@@ -25,7 +25,10 @@ function AddEventSection() {
         AmountType
     >({
         mutationKey: ['amount'],
-        mutationFn: () => Promise.resolve(true),
+        mutationFn: (value: AmountType) => {
+            setInitialMoney(value.amount);
+            return Promise.resolve(true);
+        },
         onSettled: (_, error: Error | null) => {
             if (error) {
                 notifications.error({
@@ -52,11 +55,7 @@ function AddEventSection() {
         },
         onSubmit: ({ value }) => {
             console.log('Form submitted with values:', value);
-            mutate(value, {
-                onSuccess: () => {
-                    setInitialMoney(value.amount);
-                }
-            });
+            mutate(value);
         },
         onSubmitInvalid: (errors) => {
             notifications.error({
