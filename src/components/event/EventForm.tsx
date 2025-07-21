@@ -217,7 +217,7 @@ export const EventForm = (props: EventFormType) => {
                                     label="Type"
                                     placeholder="Select event type"
                                     data={[{ value: 'income', label: 'Income' }, { value: 'expense', label: 'Expense' }]}
-                                    defaultValue="income    "
+                                    defaultValue="income"
                                 ></field.Select>
                             )}
                         >
