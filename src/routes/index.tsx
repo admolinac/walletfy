@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Box, Card, Container, Flex, SimpleGrid, Title, useMantineColorScheme } from '@mantine/core';
+import { Box, Card, Container, Flex, SimpleGrid, Text, Title, useMantineColorScheme } from '@mantine/core';
 import { createFileRoute, } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
 import type { EventType } from '@/types/eventType';
@@ -15,7 +15,6 @@ export const Route = createFileRoute('/')({
 
 function App() {
 
-
     const { colorScheme } = useMantineColorScheme();
     const initialMoney = useAppStore((state) => state.initialMoney);
     const isDark = colorScheme === 'dark';
@@ -29,11 +28,24 @@ function App() {
     });
 
     if (isPending) {
-        return <div className="p-4">Loading...</div>
+        return <Box p="md">Loading...</Box>;
     }
 
     if (error) {
-        return <div className="p-4 text-red-500">Error: {error.message}</div>
+        return <Box p="md" c="red">Error: {error.message}</Box>;
+    }
+
+    if (!Array.isArray(events) || events.length === 0) {
+        return (
+            <Container py="md" fluid>
+                <Box mb="xl" className="text-center pb-4">
+                    <AddEventSection />
+                </Box>
+                <Text size="md" c="dimmed">
+                    👋 Welcome! Start by adding your events to track your income, expenses, monthly balance, and overall financial health.
+                </Text>
+            </Container>
+        );
     }
 
     const eventsByMonthYear = events
@@ -44,6 +56,7 @@ function App() {
             acc[key].push(event);
             return acc;
         }, {});
+
 
     let lastGlobalBalance = initialMoney;
 
@@ -77,6 +90,10 @@ function App() {
 
             <Box mb="xl" className='text-center pb-4'>
                 <AddEventSection />
+            </Box>
+
+            <Box mb="xl">
+                <Text size="md" c="dimmed" mt="sm"> You have {events.length} events in {monthDataWithBalance.length} months</Text>
             </Box>
 
             <SimpleGrid cols={3} spacing="xl" verticalSpacing="xl">
