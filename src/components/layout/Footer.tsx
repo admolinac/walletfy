@@ -15,9 +15,8 @@ export default function Footer() {
                 </span>
 
                 <div className="flex gap-4">
-                    <Link to="/" className="hover:text-indigo-600 transition-colors">Start</Link>
                     <a
-                        href="https://github.com/tuusuario/walletfy"
+                        href="https://github.com/admolinac/walletfy"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-indigo-600 transition-colors"
